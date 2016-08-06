@@ -14,12 +14,15 @@ var slider;
 var slider2;
 
 function setup() {
-  createCanvas(640, 480);
+  createCanvas(640, 650);
   pixelDensity(1);
   video = createCapture(VIDEO);
   video.size(width/vScale, height/vScale);
+
   slider = createSlider(0, 255, 127);
+  slider.position(50,545);
   slider2 = createSlider(0,16,8);
+  slider2.position(200,545);
 }
 
 function draw() {
@@ -47,9 +50,11 @@ function draw() {
 
 
       if (bright > threshold) {
-        fill(255);
+        fill(r,g,b);
       } else {
-        fill(0);
+                fill(255-r,255-g,255-b);
+
+//        fill(0);
       }
 
       //var w = vScale // map(bright, 0, 255, 0, vScale);
@@ -58,10 +63,13 @@ function draw() {
       noStroke();
      // fill(255);
       rectMode(CENTER);
-      rect(x*vScale, y*vScale, w, w);
+      rect(x*vScale, y*vScale * 0.8, w, w);
 
     }
   } 
+  fill(255);
+   text('slider color', 100, 525);
+    text('slider brightness', 200, 525);
 }
 
 
