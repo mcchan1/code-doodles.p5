@@ -9,20 +9,25 @@
  
 var video;
 
-var vScale = 16;
+var vScale = 10;
+
 var slider; 
 var slider2;
+var slider3;
 
 function setup() {
   createCanvas(640, 650);
   pixelDensity(1);
   video = createCapture(VIDEO);
+ 
   video.size(width/vScale, height/vScale);
 
   slider = createSlider(0, 255, 127);
   slider.position(50,545);
   slider2 = createSlider(0,16,8);
   slider2.position(200,545);
+  slider3 = createSlider(4,18,10);
+  slider3.position(350,545);
 }
 
 function draw() {
@@ -33,8 +38,10 @@ function draw() {
 
    var threshold = slider.value(); //pixel value over threshold, do something
    var pixelScale = slider2.value();
-
-  console.log(threshold);
+   var size = slider3.value();
+    
+    console.log('size',size);
+    console.log(threshold);
 
   for (var y = 0; y < video.height; y++) {
     for (var x = 0; x < video.width; x++) {
@@ -63,13 +70,14 @@ function draw() {
       noStroke();
      // fill(255);
       rectMode(CENTER);
-      rect(x*vScale, y*vScale * 0.8, w, w);
+      rect(x*size, y*size * 0.8, w, w);
 
     }
   } 
   fill(255);
-   text('slider color', 100, 525);
+    text('slider color', 75, 525);
     text('slider brightness', 200, 525);
+    text('slider video scale',350,525);
 }
 
 
