@@ -2,6 +2,7 @@ var video;
 var slider;
 var pixelateButton;
 var edgeButton;
+var edge; 
 
 function setup() {
 	canvas = createCanvas(640,460, WEBGL);
@@ -15,10 +16,13 @@ function setup() {
 	slider = createSlider(0,1,0,0.01);
 	slider.id('blur-slider');
 
-	//CREATE BUTTON
+	//CREATE BUTTONS
+	var edgeLetter = "edge off";
+	var edgeButton = createButton(edgeLetter);
+	edgeButton.id('edged');
+	edgeButton.mouseClicked(edged);
 
-	// edgeButton = createButton('edged');
-	// edgeButton.mousePressed(edged);
+
 
 
 	//INITIALIZE SOURCE AND TARGET
@@ -37,6 +41,19 @@ function setup() {
 	//source inherits from previous effect -use to combine effects
 	edge.source = pixelate;
 	target.source = edge;
+
+
+	function edged () {
+		
+		if(blur.source == edge) {
+			blur.source = pixelate;
+			
+		}
+		else {
+			blur.source = edge;
+		}
+		
+	}
 
 	//BLUR
 	var blur = seriously.effect('blur');
