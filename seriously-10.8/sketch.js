@@ -22,7 +22,13 @@ function setup() {
 	edgeButton.id('edged');
 	edgeButton.mouseClicked(edged);
 
-
+	var pixelateButton = createButton('pixelate');
+	pixelateButton.id('pixelate');
+	//pixelateButton.mouseClicked(pixelated);
+ 
+	var nightvisionButton = createButton('nightvision');
+	nightvisionButton.id('nightvision');
+	nightvisionButton.mouseClicked(nightvisionState);
 
 
 	//INITIALIZE SOURCE AND TARGET
@@ -35,7 +41,6 @@ function setup() {
 	pixelate.source = src;
 	target.source = pixelate;
 	
-	
 	//EDGE
 	var edge = seriously.effect('edge');
 	//source inherits from previous effect -use to combine effects
@@ -46,13 +51,11 @@ function setup() {
 	function edged () {
 		
 		if(blur.source == edge) {
-			blur.source = pixelate;
-			
+			blur.source = pixelate;	
 		}
 		else {
 			blur.source = edge;
-		}
-		
+		}	
 	}
 
 	//BLUR
@@ -65,6 +68,17 @@ function setup() {
 	var nightvision = seriously.effect('nightvision');
 	nightvision.source = blur;
 	target.source = nightvision;
+
+	function nightvisionState () {
+		if (nightvision.source == blur) {
+			nightvision.source = src;
+
+		}
+		else
+		{
+			nightvision.source = blur; 
+		}
+	}
 
 	//RENDER
 	seriously.go();
