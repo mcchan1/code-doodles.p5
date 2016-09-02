@@ -33,43 +33,55 @@ function setup() {
 	edgeBox.id('edge');
 	edgeBox.changed(makeEffects);
 
-	function pixelate(){
+	function pixelate(_src){
+
 		var pixelate = seriously.effect('pixelate');
-		pixelate.source = src;
+		pixelate.source = _src;
 		target.source = pixelate;
-	}
-	function nightvisoned() {
-		var nightvision = seriously.effect('nightvision');
-		nightvision.source = src;
-		target.source = nightvision;
+		return pixelate;
 	}
 
-	function edged() {
+	function nightvisoned(_src) {
+		var nightvision = seriously.effect('nightvision');
+		nightvision.source = _src;
+		target.source = nightvision;
+		return nightvision;
+	}
+
+	function edged(_src) {
 		var edge = seriously.effect('edge');
-	 		edge.source = src;
+	 		edge.source = _src;
 	 		target.source = edge;
+	 		return edge;
 	}
 
 	function makeEffects () {
-		if (pixelateBox.checked()) {
-
-			pixelate();
-		}
-		else if (nightvisionBox.checked()){
-			nightvisoned();
-		}
-
-		else if (edgeBox.checked()) {
-			edged();
-		}
-
-		else if (pixelateBox.checked() && nightvisionBox.checked() ) {
+		
+		if (pixelateBox.checked() && nightvisionBox.checked() ) {
 			// var nightvision = seriously.effect('nightvision');
+			
+		//	debugger;
+		var pix = pixelate(src);
+			nightvisoned( pix );
 			// pixelate.source = src;
 	 	// 	nightvision.source = pixelate;
 			// target.source = nightvision;
 			console.log('pixels and nightvision');
 		}
+
+		else if (pixelateBox.checked()) {
+
+			pixelate(src);
+		}
+		else if (nightvisionBox.checked()){
+			nightvisoned(src);
+		}
+
+		else if (edgeBox.checked()) {
+			edged(src);
+		}
+
+		
 	}
 
 
