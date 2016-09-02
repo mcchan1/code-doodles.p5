@@ -1,10 +1,9 @@
 var video;
-var slider;
-var pixelateButton;
-var edgeButton;
-var edge; 
-
-
+var pixelateBox;
+var nightvisionBox;
+var edgeBox;
+var pixelate;
+var nightvision;
 
 function setup() {
 	canvas = createCanvas(640,460, WEBGL);
@@ -21,62 +20,58 @@ function setup() {
 	var src = seriously.source('#p5video');
 	var target = seriously.target('#p5canvas');
 
-	function restart() {
-		console.log('no checkbox ');
-	}
-
-	//CREATE BUTTONS
-	
 	var pixelateBox = createCheckbox('pixelate',false);
 	pixelateBox.id('pixelate');
-	pixelateBox.changed(pixelated);
+	pixelateBox.changed(makeEffects);
+	
 
 	var nightvisionBox = createCheckbox('nightvision',false);
 	nightvisionBox.id('nightvision');
-	nightvisionBox.changed(nightvisionState);
+	nightvisionBox.changed(makeEffects);
 
 	var edgeBox = createCheckbox('edge',false);
 	edgeBox.id('edge');
-	edgeBox.changed(edged);
-	
-	function pixelated () {
-		if(this.checked()){
-			var pixelate = seriously.effect('pixelate');
-			pixelate.source = src;
-			target.source = pixelate;
-		
-		}
-		else {
-			
-			restart();
+	edgeBox.changed(makeEffects);
 
+	function pixelate(){
+		var pixelate = seriously.effect('pixelate');
+		pixelate.source = src;
+		target.source = pixelate;
+	}
+	function nightvisoned() {
+		var nightvision = seriously.effect('nightvision');
+		nightvision.source = src;
+		target.source = nightvision;
+	}
+
+	function edged() {
+		var edge = seriously.effect('edge');
+	 		edge.source = src;
+	 		target.source = edge;
+	}
+
+	function makeEffects () {
+		if (pixelateBox.checked()) {
+
+			pixelate();
+		}
+		else if (nightvisionBox.checked()){
+			nightvisoned();
+		}
+
+		else if (edgeBox.checked()) {
+			edged();
+		}
+
+		else if (pixelateBox.checked() && nightvisionBox.checked() ) {
+			// var nightvision = seriously.effect('nightvision');
+			// pixelate.source = src;
+	 	// 	nightvision.source = pixelate;
+			// target.source = nightvision;
+			console.log('pixels and nightvision');
 		}
 	}
 
-	function nightvisionState (){
-		if (this.checked()){
-			var nightvision = seriously.effect('nightvision');
-			nightvision.source = src;
-			target.source = nightvision;
-		}
-		else {
-			console.log('no check');
-			pixelate.source = src;
-			target.source = pixelate;
-
-		}
-	}
-
-	function edged () {
-		if (this.checked()){
-			var edge = seriously.effect('edge');
-			edge.source = src;
-			target.source = edge;
-		}
-		else {
-			console.log('no check');
-		}
-	}
 
 	//RENDER
 	seriously.go();
