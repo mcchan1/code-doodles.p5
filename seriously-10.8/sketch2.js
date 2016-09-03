@@ -60,13 +60,14 @@ function setup() {
 
 	//FUNCTION TO MIX EFFECTS BASED ON WHICH CHECKBOX(ES) ARE CHECKED 
 	//HAVE TO GO IN DECREASING ORDER FOR NUMBER OF CHECKBOXES
+	//Edge has to come before Nightvision which has to come before Pixels
 	function makeEffects () {
 		//ALL THREE BOXES CHECKED
 		if (pixelateBox.checked() && edgeBox.checked()&& nightvisionBox.checked()) {
 				
-				// var pix = pixelate(src);
-				// var edgy = edged(src);
-				// nightvisioned(edgy);	
+				var edgy = edged(src);
+				var NE = nightvisioned(edgy);	
+				pixelate(NE);
 
 				console.log('all effects');
 		 }
