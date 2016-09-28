@@ -41,7 +41,7 @@ function setup() {
 		var pixelate = seriously.effect('pixelate');
 		pixelate.source = _src;
 		target.source = pixelate;
-		return pixelate;
+		return pixelate; //return function to use later
 	}
 
 	function nightvisioned(_src) {
