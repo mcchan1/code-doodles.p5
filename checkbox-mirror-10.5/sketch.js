@@ -7,7 +7,7 @@
  
 var video;
 
-var vScale = 10;
+var vScale = 8;
 
 var slider; 
 var slider2;
@@ -19,19 +19,20 @@ function setup() {
   video = createCapture(VIDEO);
  
   video.size(width/vScale, height/vScale);
+  video.id('video-original');
 
   slider = createSlider(0, 255, 127);
-  slider.position(50,545);
+  slider.position(50,675);
   slider.id('color-slider');
   slider.class('input-slider');
   slider2 = createSlider(0,16,8);
-  slider2.position(200,545);
+  slider2.position(200,675);
   slider2.id('pixel-size-slider');
-  slider.class('input-slider');
-  slider3 = createSlider(4,18,10);
-  slider3.position(350,545);
+  slider2.class('input-slider');
+  slider3 = createSlider(4,18,7);
+  slider3.position(360,675);
   slider3.id('video-size-slider');
-  slider.class('input-slider');
+  slider3.class('input-slider');
 }
 
 function draw() {
@@ -80,8 +81,10 @@ function draw() {
 
     }
   } 
-  fill(255);
-    text('slider color', 75, 525);
-    text('slider brightness', 200, 525);
-    text('slider video scale',350,525);
-}
+ 
+    fill('red');
+    textSize(18);
+    text('Slider Color', 50, 525);
+    text('Slider Brightness', 185, 525);
+    text('Slider Video Scale',350,525);    
+} //end Draw()
